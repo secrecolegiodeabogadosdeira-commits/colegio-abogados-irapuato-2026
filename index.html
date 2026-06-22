@@ -381,7 +381,7 @@
                         <span class="tema-fecha">Miércoles 15 de julio</span>
                         <p class="tema-descripcion">
                             "Los retos del abogado en la teoría del caso en el nuevo Código Nacional de
-                            Procedimientos Civiles y Familiares", impartido por la <strong>Maestra Patricia Ruiz Frías</strong>,
+                            Procedimientos Civiles y Familiares", impartido por la Maestra Patricia Ruiz Frías,
                             Juez de Oralidad Familiar en Irapuato.
                         </p>
                     </div>
@@ -390,7 +390,7 @@
                         <span class="tema-fecha">Jueves 16 de julio</span>
                         <p class="tema-descripcion">
                             "El desahogo de pruebas en el nuevo Código Nacional de Procedimientos
-                            Civiles y Familiares", impartido por la <strong>Maestra Martha Georgia Robledo Ascencio</strong>,
+                            Civiles y Familiares", impartido por la Maestra Martha Georgia Robledo Ascencio,
                             Juez de Oralidad Familiar en Irapuato.
                         </p>
                     </div>
@@ -422,32 +422,32 @@
 
             <form id="registroForm" class="formulario">
                 <div class="form-group">
-                    <input type="text" placeholder="Nombre completo" required>
+                    <input type="text" id="nombre" placeholder="Nombre completo" required>
                 </div>
                 <div class="form-group">
-                    <input type="text" placeholder="Domicilio" required>
+                    <input type="text" id="domicilio" placeholder="Domicilio" required>
                 </div>
                 <div class="form-group">
-                    <input type="email" placeholder="Correo electrónico" required>
+                    <input type="email" id="correo" placeholder="Correo electrónico" required>
                 </div>
                 <div class="form-group">
-                    <input type="text" placeholder="Número particular con WhatsApp" required>
+                    <input type="text" id="whatsapp" placeholder="Número particular con WhatsApp" required>
                 </div>
                 <div class="form-group">
-                    <input type="text" placeholder="Número de oficina (opcional)">
+                    <input type="text" id="oficina" placeholder="Número de oficina (opcional)">
                 </div>
                 <div class="form-group">
                     <input type="text" id="cedula" placeholder="Número de cédula profesional" minlength="7" maxlength="10" required>
                 </div>
                 <div class="form-group">
-                    <select required>
+                    <select id="miembro" required>
                         <option value="" disabled selected hidden>¿Pertenece al Colegio de Abogados de Irapuato?</option>
                         <option value="Sí, soy miembro colegiado">Sí, soy miembro colegiado</option>
                         <option value="No, no pertenezco al Colegio de Abogados">No, no pertenezco al Colegio de Abogados</option>
                     </select>
                 </div>
 
-                <button type="submit">
+                <button type="submit" id="btnRegistrar">
                     Registrarme Ahora
                 </button>
             </form>
@@ -457,12 +457,15 @@
     </section>
 
     <script>
+        // Tu URL de Google Apps Script vinculada correctamente
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwgCzfRUcmNhfJIbj8IKI_UUvzFBFwLsGunbMMc09yuVPOZAuJLpzh0w_pZ08nmnyot/exec";
+
         let disponibles = 100;
 
         document.getElementById('registroForm').addEventListener('submit', function(e){
             e.preventDefault();
 
-            // Validación mejorada de la cédula profesional
+            // Validación de la cédula profesional (mínimo 7 y máximo 10 caracteres)
             let cedulaInput = document.getElementById('cedula').value.trim();
             
             if(cedulaInput.length < 7 || cedulaInput.length > 10) {
@@ -477,20 +480,62 @@
                 return;
             }
 
-            disponibles--;
-            document.getElementById('cupos').innerText = disponibles;
+            // Desactivar el botón para prevenir el doble envío accidental
+            const btn = document.getElementById('btnRegistrar');
+            btn.disabled = true;
+            btn.innerText = "Procesando Registro...";
 
+            // Generación de Folio único
             let folio = 'CJ2026-' + Date.now().toString().slice(-6);
 
-            document.getElementById('resultado').innerHTML =
-            '<div style="background:#d4edda; color:#155724; padding:20px; border-radius:8px; border:1px solid #c3e6cb;">' +
-            '<h3 style="font-family:\'Montserrat\', sans-serif; margin-bottom:10px;">¡Registro Exitoso!</h3>' +
-            '<p>Tu registro se ha completado correctamente.</p>' +
-            '<p style="font-weight:700; font-size:18px; margin-top:10px;">Tu Folio es: ' + folio + '</p>' +
-            '<p style="font-size:14px; margin-top:5px; color:#555;">Por favor, guarda este folio para tu acceso.</p>' +
-            '</div>';
+            // Estructura de datos a enviar al backend en Sheets
+            let datosFormulario = {
+                nombre: document.getElementById('nombre').value,
+                domicilio: document.getElementById('domicilio').value,
+                correo: document.getElementById('correo').value,
+                whatsapp: document.getElementById('whatsapp').value,
+                oficina: document.getElementById('oficina').value || 'N/A',
+                cedula: cedulaInput,
+                miembro: document.getElementById('miembro').value,
+                folio: folio
+            };
 
-            this.reset();
+            // Envío asíncrono de los datos mediante Fetch API
+            fetch(WEB_APP_URL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(datosFormulario)
+            })
+            .then(response => {
+                // Restar cupo tras el éxito de la petición
+                disponibles--;
+                document.getElementById('cupos').innerText = disponibles;
+
+                // Mostrar respuesta visual agradable al usuario
+                document.getElementById('resultado').innerHTML =
+                '<div style="background:#d4edda; color:#155724; padding:20px; border-radius:8px; border:1px solid #c3e6cb;">' +
+                '<h3 style="font-family:\'Montserrat\', sans-serif; margin-bottom:10px;">¡Registro Exitoso!</h3>' +
+                '<p>Tu registro se ha completado correctamente y se guardó en la base de datos.</p>' +
+                '<p style="font-weight:700; font-size:18px; margin-top:10px;">Tu Folio es: ' + folio + '</p>' +
+                '<p style="font-size:14px; margin-top:5px; color:#555;">Por favor, guarda este folio para tu acceso.</p>' +
+                '</div>';
+
+                // Limpiar los campos del formulario
+                document.getElementById('registroForm').reset();
+            })
+            .catch(error => {
+                console.error("Error en la petición:", error);
+                document.getElementById('resultado').innerHTML =
+                '<h3 style="color:#d9534f; font-family:\'Montserrat\', sans-serif;">Hubo un problema de conexión. Inténtalo de nuevo.</h3>';
+            })
+            .finally(() => {
+                // Habilitar de nuevo el botón de registro
+                btn.disabled = false;
+                btn.innerText = "Registrarme Ahora";
+            });
         });
     </script>
 
