@@ -141,12 +141,13 @@
         }
 
         /* --- Temas & Cronograma --- */
-        .temas h2 {
+        .temas-title {
             font-family:'Montserrat', sans-serif;
             color: var(--dorado-rico);
             margin-bottom: 30px;
             font-size: 32px;
             font-weight: 700;
+            text-align: center; /* Aquí centramos la palabra PROGRAMA */
         }
 
         .tema {
@@ -244,17 +245,19 @@
             margin-bottom: 20px;
         }
 
-        input {
+        input, select {
             width: 100%;
             padding: 15px;
             border: 1px solid #ddd;
             border-radius: 8px;
             font-family:'Poppins', sans-serif;
             font-size: 15px;
+            background-color: #fff;
+            color: var(--texto-oscuro);
             transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
 
-        input:focus {
+        input:focus, select:focus {
             outline: none;
             border-color: var(--azul-profundo);
             box-shadow: 0 0 0 3px rgba(10, 31, 68, 0.1);
@@ -315,7 +318,7 @@
                 font-size: 17px;
             }
 
-            .temas h2 {
+            .temas-title {
                 font-size: 26px;
             }
 
@@ -337,7 +340,6 @@
         <div class="container">
             <header class="header">
                 <img src="logo.jpg" alt="Colegio de Abogados de Irapuato" class="header-logo">
-                <!-- Texto añadido justo debajo del logo -->
                 <div class="logo-text">COLEGIO DE ABOGADOS DE IRAPUATO, A.C.</div>
                 
                 <h1>CICLO DE CONFERENCIAS<br> SEMANA DEL ABOGADO 2026</h1>
@@ -365,7 +367,7 @@
                 </aside>
 
                 <div class="temas">
-                    <h2>PROGRAMA </h2>
+                    <h2 class="temas-title">PROGRAMA</h2>
 
                     <div class="tema">
                         <span class="tema-fecha">Lunes 13 y martes 14 de julio</span>
@@ -436,6 +438,14 @@
                 </div>
                 <div class="form-group">
                     <input type="text" placeholder="Número de cédula profesional">
+                </div>
+                <div class="form-group">
+                    <select required>
+                        <option value="" disabled selected hidden>¿Pertenece al Colegio de Abogados de Irapuato?</option>
+                        <option value="Sí, soy miembro colegiado">Sí, soy miembro colegiado</option>
+                        <option value="No, soy abogado externo">No, soy abogado externo</option>
+                        <option value="No, soy estudiante / otro público">No, soy estudiante / otro público</option>
+                    </select>
                 </div>
 
                 <button type="submit">
