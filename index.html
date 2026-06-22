@@ -1,313 +1,472 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Conferencias Semana del Abogado 2026</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conferencias Semana del Abogado 2026 - Colegio de Abogados de Irapuato</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
+    <style>
+        /* --- Estilos Globales & Reset --- */
+        :root {
+            --azul-profundo: #0A1F44; /* Azul más corporativo */
+            --dorado-rico: #DAA520; /* Dorado más suave y elegante */
+            --blanco-suave: #F4F7F6; /* Gris muy claro para el formulario */
+            --texto-oscuro: #333;
+            --texto-claro: #fff;
+            --sombra-suave: 0 4px 15px rgba(0,0,0,0.1);
+        }
 
-body{
-    font-family:'Poppins',sans-serif;
-    background:#001f5c;
-    color:#fff;
-}
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
 
-.hero{
-    padding:40px 20px;
-}
+        body{
+            font-family:'Poppins', sans-serif;
+            background: var(--azul-profundo);
+            color: var(--texto-claro);
+            line-height: 1.6;
+        }
 
-.container{
-    max-width:1200px;
-    margin:auto;
-}
+        .container{
+            max-width: 1200px;
+            margin: auto;
+            padding: 0 20px;
+        }
 
-.header{
-    text-align:center;
-    margin-bottom:40px;
-}
+        /* --- Sección Hero/Conferencias --- */
+        .hero {
+            padding: 80px 0;
+            position: relative;
+        }
 
-.header h1{
-    font-family:'Montserrat',sans-serif;
-    font-size:56px;
-    font-weight:800;
-    letter-spacing:3px;
-}
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
 
-.header h2{
-    font-size:24px;
-    font-weight:400;
-    margin-top:10px;
-}
+        .header-logo {
+            max-width: 150px; /* Ajusta según tu logo */
+            margin-bottom: 20px;
+        }
 
-.grid{
-    display:grid;
-    grid-template-columns:320px 1fr;
-    gap:40px;
-}
+        .header h1 {
+            font-family:'Montserrat', sans-serif;
+            font-size: 48px; /* Ligeramente más pequeño para mejor legibilidad */
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            line-height: 1.2;
+            color: var(--blanco-suave);
+        }
 
-.ponente{
-    margin-bottom:30px;
-}
+        .header h2 {
+            font-size: 20px;
+            font-weight: 300;
+            margin-top: 20px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            color: rgba(255, 255, 255, 0.8);
+        }
 
-.ponente img{
-    width:120px;
-    height:120px;
-    border-radius:10px;
-    object-fit:cover;
-    display:block;
-    margin-bottom:10px;
-    border:3px solid #fff;
-}
+        /* Grid Principal (Ponentes y Temas) */
+        .grid {
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 50px;
+            align-items: start;
+        }
 
-.ponente h3{
-    font-size:22px;
-}
+        /* --- Ponentes --- */
+        .exponentes-section {
+            background: rgba(255, 255, 255, 0.03); /* Fondo sutil */
+            padding: 30px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
 
-.temas h2{
-    color:#f0b44c;
-    margin-bottom:20px;
-    font-size:36px;
-}
+        .exponentes-title {
+            font-family:'Montserrat', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: var(--blanco-suave);
+            text-align: center;
+        }
 
-.tema{
-    margin-bottom:20px;
-    line-height:1.8;
-    font-size:18px;
-}
+        .ponente {
+            margin-bottom: 35px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
 
-.info{
-    background:#f0b44c;
-    color:#001f5c;
-    padding:25px;
-    border-radius:10px;
-    font-weight:bold;
-    margin-top:20px;
-}
+        .ponente img {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%; /* Imágenes circulares son más modernas */
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 4px solid var(--dorado-rico);
+            box-shadow: var(--sombra-suave);
+            transition: transform 0.3s ease;
+        }
 
-.registro{
-    background:#fff;
-    color:#333;
-    padding:50px 20px;
-}
+        .ponente img:hover {
+            transform: scale(1.05);
+        }
 
-.formulario{
-    max-width:700px;
-    margin:auto;
-}
+        .ponente h3 {
+            font-family:'Montserrat', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--blanco-suave);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
 
-input{
-    width:100%;
-    padding:12px;
-    margin:8px 0;
-    border:1px solid #ccc;
-    border-radius:6px;
-}
+        /* --- Temas & Cronograma --- */
+        .temas h2 {
+            font-family:'Montserrat', sans-serif;
+            color: var(--dorado-rico);
+            margin-bottom: 30px;
+            font-size: 32px;
+            font-weight: 700;
+        }
 
-button{
-    width:100%;
-    padding:14px;
-    background:#001f5c;
-    color:#fff;
-    border:none;
-    border-radius:6px;
-    cursor:pointer;
-    font-size:16px;
-}
+        .tema {
+            margin-bottom: 25px;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            transition: background 0.3s ease;
+        }
 
-button:hover{
-    opacity:.9;
-}
+        .tema:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
 
-.cupo{
-    text-align:center;
-    font-size:22px;
-    font-weight:bold;
-    margin-bottom:20px;
-}
+        .tema-fecha {
+            font-family:'Poppins', sans-serif;
+            font-weight: 600;
+            color: var(--blanco-suave);
+            font-size: 16px;
+            margin-bottom: 5px;
+            display: block;
+        }
 
-#resultado{
-    text-align:center;
-    margin-top:20px;
-}
+        .tema-descripcion {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.9);
+        }
 
-@media(max-width:768px){
+        /* --- Sección de Información Destacada --- */
+        .info {
+            background: var(--dorado-rico);
+            color: var(--azul-profundo);
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 40px;
+            box-shadow: var(--sombra-suave);
+        }
 
-.grid{
-    grid-template-columns:1fr;
-}
+        .info p {
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
 
-.header h1{
-    font-size:34px;
-}
+        .info p:last-child {
+            margin-bottom: 0;
+        }
 
-.header h2{
-    font-size:18px;
-}
+        .info strong {
+            font-weight: 700;
+        }
 
-.temas h2{
-    font-size:28px;
-}
-}
-</style>
+        /* --- Sección de Registro --- */
+        .registro {
+            background: var(--blanco-suave);
+            color: var(--texto-oscuro);
+            padding: 80px 0;
+        }
+
+        .registro-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .registro-header h2 {
+            font-family:'Montserrat', sans-serif;
+            font-size: 36px;
+            font-weight: 700;
+            color: var(--azul-profundo);
+        }
+
+        .cupo {
+            text-align: center;
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 30px;
+            color: #555;
+        }
+
+        .cupo span {
+            font-weight: 700;
+            color: var(--azul-profundo);
+        }
+
+        /* --- Formulario Estilizado --- */
+        .formulario {
+            max-width: 650px;
+            margin: auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-family:'Poppins', sans-serif;
+            font-size: 15px;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--azul-profundo);
+            box-shadow: 0 0 0 3px rgba(10, 31, 68, 0.1);
+        }
+
+        button {
+            width: 100%;
+            padding: 16px;
+            background: var(--azul-profundo);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family:'Montserrat', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background: #0d2a5a;
+        }
+
+        button:active {
+            transform: translateY(1px);
+        }
+
+        #resultado {
+            text-align: center;
+            margin-top: 30px;
+            font-weight: 500;
+        }
+
+        /* --- Media Queries (Responsivo) --- */
+        @media(max-width: 992px){
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .header h1 {
+                font-size: 38px;
+            }
+        }
+
+        @media(max-width: 768px){
+            .hero, .registro {
+                padding: 60px 0;
+            }
+
+            .header h1 {
+                font-size: 30px;
+            }
+
+            .header h2 {
+                font-size: 17px;
+            }
+
+            .temas h2 {
+                font-size: 26px;
+            }
+
+            .ponente img {
+                width: 110px;
+                height: 110px;
+            }
+
+            .formulario {
+                padding: 30px;
+            }
+        }
+    </style>
 
 </head>
 <body>
 
-<section class="hero">
+    <section class="hero">
+        <div class="container">
+            <header class="header">
+                <!-- Reemplaza 'logo.jpg' con la ruta real de tu logo -->
+                <img src="logo.jpg" alt="Colegio de Abogados de Irapuato" class="header-logo">
+                <h1>CICLO DE CONFERENCIAS<br> SEMANA DEL ABOGADO 2026</h1>
+                <h2>Conferencias con motivo de la implementación del nuevo Código Nacional de Procedimientos Civiles y Familiares</h2>
+            </header>
 
-<div class="container">
+            <div class="grid">
+                <aside class="exponentes-section">
+                    <h2 class="exponentes-title">Nuestros Ponentes</h2>
 
-<div class="header">
-<h1>Ciclo de conferencias semana del abogado Julio 2026</h1>
+                    <div class="ponente">
+                        <!-- Reemplaza 'Luis.jpg' con la ruta real -->
+                        <img src="Luis.jpg" alt="Dr. Luis Antonio Santoyo Mota">
+                        <h3>Dr. Luis Antonio Santoyo Mota</h3>
+                    </div>
 
-<h2>
-Conferencias con motivo de la implementación del nuevo Código Nacional
-de Procedimientos Civiles y Familiares
-</h2>
-</div>
+                    <div class="ponente">
+                        <!-- Reemplaza 'Patricia.jpg' con la ruta real -->
+                        <img src="Patricia.jpg" alt="Mtra. Patricia Ruiz Frías">
+                        <h3>Mtra. Patricia Ruiz Frías</h3>
+                    </div>
 
-<div class="grid">
+                    <div class="ponente">
+                        <!-- Reemplaza 'martha.jpg' con la ruta real -->
+                        <img src="martha.jpg" alt="Mtra. Martha Georgia Robledo Ascencio">
+                        <h3>Mtra. Martha Georgia Robledo Ascencio</h3>
+                    </div>
+                </aside>
 
-<div>
+                <div class="temas">
+                    <h2>PROGRAMA DE TEMAS</h2>
 
-<div class="ponente">
-<img src="Luis.jpg" alt="Dr. Luis Antonio Santoyo Mota">
-<h3>DR. LUIS ANTONIO SANTOYO MOTA</h3>
-</div>
+                    <div class="tema">
+                        <span class="tema-fecha">Lunes 13 y martes 14 de julio</span>
+                        <p class="tema-descripcion">
+                            "El juicio ordinario civil oral", impartido por el <strong>Doctor Luis Antonio Santoyo Mota</strong>,
+                            Juez de Partido Tercero Civil en Irapuato.
+                        </p>
+                    </div>
 
-<div class="ponente">
-<img src="Patricia.jpg" alt="Mtra. Patricia Ruiz Frías">
-<h3>MTRA. PATRICIA RUIZ FRÍAS</h3>
-</div>
+                    <div class="tema">
+                        <span class="tema-fecha">Miércoles 15 de julio</span>
+                        <p class="tema-descripcion">
+                            "Los retos del abogado en la teoría del caso en el nuevo Código Nacional de
+                            Procedimientos Civiles y Familiares", impartido por la <strong>Maestra Patricia Ruiz Frías</strong>,
+                            Juez de Oralidad Familiar en Irapuato.
+                        </p>
+                    </div>
 
-<div class="ponente">
-<img src="martha.jpg" alt="Mtra. Martha Georgia Robledo Ascencio">
-<h3>MTRA. MARTHA GEORGIA ROBLEDO ASCENCIO</h3>
-</div>
+                    <div class="tema">
+                        <span class="tema-fecha">Jueves 16 de julio</span>
+                        <p class="tema-descripcion">
+                            "El desahogo de pruebas en el nuevo Código Nacional de Procedimientos
+                            Civiles y Familiares", impartido por la <strong>Maestra Martha Georgia Robledo Ascencio</strong>,
+                            Juez de Oralidad Familiar en Irapuato.
+                        </p>
+                    </div>
 
-</div>
+                    <div class="info">
+                        <p><strong>Fecha:</strong> 13, 14, 15 y 16 de julio de 2026</p>
+                        <p><strong>Horario:</strong> 5:00 PM a 7:00 PM</p>
+                        <p><strong>Lugar:</strong> Aula Magna de los Juzgados Civiles de Irapuato, Guanajuato.</p>
+                        <p>
+                            <strong>Dirección:</strong><br>
+                            Avenida Florencia No. 645, Colonia Residencial Campestre, C.P. 36698, Irapuato, Guanajuato.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<div class="temas">
+    <section class="registro">
+        <div class="container">
+            <div class="registro-header">
+                <h2>Registro de Asistentes</h2>
+            </div>
 
-<h2>TEMAS</h2>
+            <div class="cupo">
+                Estado del cupo: <span><span id="cupos">80</span></span> de 80 disponibles. <br>
+                <small>¡Cupo limitado!</small>
+            </div>
 
-<div class="tema">
-<strong>Lunes 13 y martes 14 de julio</strong><br>
-"El juicio ordinario civil oral", impartido por el Doctor Luis Antonio Santoyo Mota,
-Juez de Partido Tercero Civil en Irapuato.
-</div>
+            <form id="registroForm" class="formulario">
+                <div class="form-group">
+                    <input type="text" placeholder="Nombre completo" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="Domicilio" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" placeholder="Correo electrónico" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="Número particular con WhatsApp" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="Número de oficina (opcional)">
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="Número de cédula profesional">
+                </div>
 
-<div class="tema">
-<strong>Miércoles 15 de julio</strong><br>
-"Los retos del abogado en la teoría del caso en el nuevo Código Nacional de
-Procedimientos Civiles y Familiares", impartido por la Maestra Patricia Ruiz Frías,
-Juez de Oralidad Familiar en Irapuato.
-</div>
+                <button type="submit">
+                    Registrarme Ahora
+                </button>
+            </form>
 
-<div class="tema">
-<strong>Jueves 16 de julio</strong><br>
-"El desahogo de pruebas en el nuevo Código Nacional de Procedimientos
-Civiles y Familiares", impartido por la Maestra Martha Georgia Robledo Ascencio,
-Juez de Oralidad Familiar en Irapuato.
-</div>
+            <div id="resultado"></div>
+        </div>
+    </section>
 
-<div class="info">
+    <script>
+        let disponibles = 80;
 
-13, 14, 15 y 16 de julio de 2026<br><br>
+        document.getElementById('registroForm').addEventListener('submit', function(e){
+            e.preventDefault();
 
-Horario: 5:00 PM a 7:00 PM<br><br>
+            if(disponibles <= 0){
+                document.getElementById('resultado').innerHTML =
+                '<h3 style="color:#d9534f; font-family:\'Montserrat\', sans-serif;">¡LO SENTIMOS, CUPO AGOTADO!</h3>';
+                return;
+            }
 
-Aula Magna de los Juzgados Civiles de Irapuato, Guanajuato.<br><br>
+            disponibles--;
+            document.getElementById('cupos').innerText = disponibles;
 
-Dirección:<br>
-Avenida Florencia No. 645,
-Colonia Residencial Campestre,
-C.P. 36698,
-Irapuato, Guanajuato.
+            // Generar folio simple
+            let folio = 'CJ2026-' + Date.now().toString().slice(-6);
 
-</div>
+            document.getElementById('resultado').innerHTML =
+            '<div style="background:#d4edda; color:#155724; padding:20px; border-radius:8px; border:1px solid #c3e6cb;">' +
+            '<h3 style="font-family:\'Montserrat\', sans-serif; margin-bottom:10px;">¡Registro Exitoso!</h3>' +
+            '<p>Tu registro se ha completado correctamente.</p>' +
+            '<p style="font-weight:700; font-size:18px; margin-top:10px;">Tu Folio es: ' + folio + '</p>' +
+            '<p style="font-size:14px; margin-top:5px; color:#555;">Por favor, guarda este folio para tu acceso.</p>' +
+            '</div>';
 
-</div>
-
-</div>
-
-</div>
-
-</section>
-
-<section class="registro">
-
-<h2 style="text-align:center;margin-bottom:20px">
-Registro de Asistentes
-</h2>
-
-<div class="cupo">
-Cupo Limitiado
-<span id="cupos">100</span> de 80
-</div>
-
-<form id="registroForm" class="formulario">
-
-<input type="text" placeholder="Nombre completo" required>
-
-<input type="text" placeholder="Domicilio" required>
-
-<input type="email" placeholder="Correo electrónico" required>
-
-<input type="text" placeholder="Número particular con WhatsApp" required>
-
-<input type="text" placeholder="Número de oficina">
-
-<input type="text" placeholder="Número de cédula profesional">
-
-<button type="submit">
-Registrarme
-</button>
-
-</form>
-
-<div id="resultado"></div>
-
-</section>
-
-<script>
-
-let disponibles = 80;
-
-document.getElementById('registroForm').addEventListener('submit', function(e){
-
-e.preventDefault();
-
-if(disponibles <= 0){
-
-document.getElementById('resultado').innerHTML =
-'<h3 style="color:red">CUPO AGOTADO</h3>';
-
-return;
-}
-
-disponibles--;
-
-document.getElementById('cupos').innerText = disponibles;
-
-let folio = 'CJ2026-' + Date.now();
-
-document.getElementById('resultado').innerHTML =
-'<h3 style="color:green">Registro exitoso</h3><p>Folio: ' + folio + '</p>';
-
-this.reset();
-
-});
-
-</script>
+            this.reset();
+        });
+    </script>
 
 </body>
 </html>
