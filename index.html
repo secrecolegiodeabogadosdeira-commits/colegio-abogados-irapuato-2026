@@ -1,93 +1,313 @@
-html = """<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Conferencias Semana del Abogado 2026</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:Poppins,sans-serif;background:#001f5c;color:#fff}
-.hero{padding:40px 20px}
-.container{max-width:1200px;margin:auto}
-.header{text-align:center;margin-bottom:40px}
-.header h1{font-family:Montserrat,sans-serif;font-size:56px;font-weight:800;letter-spacing:3px}
-.grid{display:grid;grid-template-columns:320px 1fr;gap:40px}
-.ponente{margin-bottom:25px}
-.ponente img{width:120px;height:120px;border-radius:8px;object-fit:cover;background:#ddd}
-.temas h2{color:#f0b44c;margin-bottom:20px}
-.tema{margin-bottom:20px;line-height:1.8}
-.info{background:#f0b44c;color:#001f5c;padding:25px;border-radius:10px;font-weight:bold}
-.registro{background:#fff;color:#333;padding:40px 20px}
-.formulario{max-width:700px;margin:auto}
-input{width:100%;padding:12px;margin:8px 0;border:1px solid #ccc;border-radius:6px}
-button{width:100%;padding:14px;background:#001f5c;color:#fff;border:none;border-radius:6px}
-.cupo{text-align:center;font-size:22px;font-weight:bold;margin-bottom:20px}
-#resultado{text-align:center;margin-top:20px}
-@media(max-width:768px){.grid{grid-template-columns:1fr}.header h1{font-size:32px}}
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Poppins',sans-serif;
+    background:#001f5c;
+    color:#fff;
+}
+
+.hero{
+    padding:40px 20px;
+}
+
+.container{
+    max-width:1200px;
+    margin:auto;
+}
+
+.header{
+    text-align:center;
+    margin-bottom:40px;
+}
+
+.header h1{
+    font-family:'Montserrat',sans-serif;
+    font-size:56px;
+    font-weight:800;
+    letter-spacing:3px;
+}
+
+.header h2{
+    font-size:24px;
+    font-weight:400;
+    margin-top:10px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:320px 1fr;
+    gap:40px;
+}
+
+.ponente{
+    margin-bottom:30px;
+}
+
+.ponente img{
+    width:120px;
+    height:120px;
+    border-radius:10px;
+    object-fit:cover;
+    display:block;
+    margin-bottom:10px;
+    border:3px solid #fff;
+}
+
+.ponente h3{
+    font-size:22px;
+}
+
+.temas h2{
+    color:#f0b44c;
+    margin-bottom:20px;
+    font-size:36px;
+}
+
+.tema{
+    margin-bottom:20px;
+    line-height:1.8;
+    font-size:18px;
+}
+
+.info{
+    background:#f0b44c;
+    color:#001f5c;
+    padding:25px;
+    border-radius:10px;
+    font-weight:bold;
+    margin-top:20px;
+}
+
+.registro{
+    background:#fff;
+    color:#333;
+    padding:50px 20px;
+}
+
+.formulario{
+    max-width:700px;
+    margin:auto;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    margin:8px 0;
+    border:1px solid #ccc;
+    border-radius:6px;
+}
+
+button{
+    width:100%;
+    padding:14px;
+    background:#001f5c;
+    color:#fff;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:16px;
+}
+
+button:hover{
+    opacity:.9;
+}
+
+.cupo{
+    text-align:center;
+    font-size:22px;
+    font-weight:bold;
+    margin-bottom:20px;
+}
+
+#resultado{
+    text-align:center;
+    margin-top:20px;
+}
+
+@media(max-width:768px){
+
+.grid{
+    grid-template-columns:1fr;
+}
+
+.header h1{
+    font-size:34px;
+}
+
+.header h2{
+    font-size:18px;
+}
+
+.temas h2{
+    font-size:28px;
+}
+}
 </style>
+
 </head>
 <body>
+
 <section class="hero">
+
 <div class="container">
+
 <div class="header">
-<h1>CONFERENCIAS SEMANA DEL ABOGADO<br>JULIO 2026</h1>
-<h2>conferencias con motivo de la implementacion del nuevo codigo nacional de procedimientos civiles y familiares</h2>
+<h1>JULIO 2026</h1>
+
+<h2>
+Conferencias con motivo de la implementación del nuevo Código Nacional
+de Procedimientos Civiles y Familiares
+</h2>
 </div>
+
 <div class="grid">
+
 <div>
-<div class="ponente"><img src="luis.jpg"><h3>DR. LUIS ANTONIO SANTOYO MOTA</h3></div>
-<div class="ponente"><img src="patricia.jpg"><h3>MTRA. PATRICIA RUIZ FRÍAS</h3></div>
-<div class="ponente"><img src="martha.jpg"><h3>MTRA. MARTHA GEORGIA ROBLEDO ASCENCIO</h3></div>
+
+<div class="ponente">
+<img src="Luis.jpg" alt="Dr. Luis Antonio Santoyo Mota">
+<h3>DR. LUIS ANTONIO SANTOYO MOTA</h3>
 </div>
+
+<div class="ponente">
+<img src="Patricia.jpg" alt="Mtra. Patricia Ruiz Frías">
+<h3>MTRA. PATRICIA RUIZ FRÍAS</h3>
+</div>
+
+<div class="ponente">
+<img src="martha.jpg" alt="Mtra. Martha Georgia Robledo Ascencio">
+<h3>MTRA. MARTHA GEORGIA ROBLEDO ASCENCIO</h3>
+</div>
+
+</div>
+
 <div class="temas">
+
 <h2>TEMAS</h2>
-<div class="tema">Lunes 13 y martes 14 y El juicio ordinario civil oral" por el Doctor Luis Antonio Santoyo Moya, juez de partido tercero civil en Irapuato</div>
-<div class="tema"> Miércoles 15 "Los retos del abogado en la teoría del caso en el nuevo Código Nacional de procedimientos civiles y familiares" por la Maestra Patria Ruiz Frías, juez de Oralidad familiar en Irapuato. </div>
-<div class="tema">Jueves 16 "El desahogo de pruebas en el nuevo Código Nacional de procedimientos civiles y familiares" por la maestra Martha Georgia Robledo Ascencio, juez de Oralidad familiar en Irapuato.</div>
+
+<div class="tema">
+<strong>Lunes 13 y martes 14 de julio</strong><br>
+"El juicio ordinario civil oral", impartido por el Doctor Luis Antonio Santoyo Mota,
+Juez de Partido Tercero Civil en Irapuato.
+</div>
+
+<div class="tema">
+<strong>Miércoles 15 de julio</strong><br>
+"Los retos del abogado en la teoría del caso en el nuevo Código Nacional de
+Procedimientos Civiles y Familiares", impartido por la Maestra Patricia Ruiz Frías,
+Juez de Oralidad Familiar en Irapuato.
+</div>
+
+<div class="tema">
+<strong>Jueves 16 de julio</strong><br>
+"El desahogo de pruebas en el nuevo Código Nacional de Procedimientos
+Civiles y Familiares", impartido por la Maestra Martha Georgia Robledo Ascencio,
+Juez de Oralidad Familiar en Irapuato.
+</div>
+
 <div class="info">
-13, 14, 15 y 16 de Julio 2026<br><br>
- Horario De 5:00 PM a 7:PM <br><br>
-Aula Magna de los Juzgados Civiles de Irapuato, Gto.
-<div class="tema"> Direccion Avenida Florencia N° 645, en la Colonia Residencial Campestre, C.P. 36698, Irapuato, Guanajuato.</div>
+
+13, 14, 15 y 16 de julio de 2026<br><br>
+
+Horario: 5:00 PM a 7:00 PM<br><br>
+
+Aula Magna de los Juzgados Civiles de Irapuato, Guanajuato.<br><br>
+
+Dirección:<br>
+Avenida Florencia No. 645,
+Colonia Residencial Campestre,
+C.P. 36698,
+Irapuato, Guanajuato.
+
 </div>
+
 </div>
+
 </div>
+
 </div>
+
 </section>
 
 <section class="registro">
-<h2 style="text-align:center;margin-bottom:20px">Registro de Asistentes</h2>
-<div class="cupo">Lugares disponibles: <span id="cupos">80</span> de 80</div>
+
+<h2 style="text-align:center;margin-bottom:20px">
+Registro de Asistentes
+</h2>
+
+<div class="cupo">
+Lugares disponibles:
+<span id="cupos">80</span> de 80
+</div>
+
 <form id="registroForm" class="formulario">
+
 <input type="text" placeholder="Nombre completo" required>
+
 <input type="text" placeholder="Domicilio" required>
+
 <input type="email" placeholder="Correo electrónico" required>
+
 <input type="text" placeholder="Número particular con WhatsApp" required>
-<input type="text" placeholder="Número oficina">
-<input type="text" placeholder="Número cédula profesional">
-<button type="submit">Registrarme</button>
+
+<input type="text" placeholder="Número de oficina">
+
+<input type="text" placeholder="Número de cédula profesional">
+
+<button type="submit">
+Registrarme
+</button>
+
 </form>
+
 <div id="resultado"></div>
+
 </section>
 
 <script>
-let disponibles=80;
-document.getElementById('registroForm').addEventListener('submit',function(e){
+
+let disponibles = 80;
+
+document.getElementById('registroForm').addEventListener('submit', function(e){
+
 e.preventDefault();
-if(disponibles<=0){
-document.getElementById('resultado').innerHTML='<h3 style="color:red">CUPO AGOTADO</h3>';
+
+if(disponibles <= 0){
+
+document.getElementById('resultado').innerHTML =
+'<h3 style="color:red">CUPO AGOTADO</h3>';
+
 return;
 }
+
 disponibles--;
-document.getElementById('cupos').innerText=disponibles;
-let folio='CJ2026-'+Date.now();
-document.getElementById('resultado').innerHTML='<h3 style="color:green">Registro exitoso</h3><p>Folio: '+folio+'</p>';
+
+document.getElementById('cupos').innerText = disponibles;
+
+let folio = 'CJ2026-' + Date.now();
+
+document.getElementById('resultado').innerHTML =
+'<h3 style="color:green">Registro exitoso</h3><p>Folio: ' + folio + '</p>';
+
 this.reset();
+
 });
+
 </script>
+
 </body>
-</html>"""
-path="/mnt/data/Conferencias_Abogados_2026.html"
-Path(path).write_text(html,encoding="utf-8")
-print(path)
+</html>
