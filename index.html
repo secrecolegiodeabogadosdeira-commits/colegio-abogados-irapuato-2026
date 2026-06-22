@@ -10,9 +10,9 @@
     <style>
         /* --- Estilos Globales & Reset --- */
         :root {
-            --azul-profundo: #0A1F44; /* Azul más corporativo */
-            --dorado-rico: #DAA520; /* Dorado más suave y elegante */
-            --blanco-suave: #F4F7F6; /* Gris muy claro para el formulario */
+            --azul-profundo: #0A1F44;
+            --dorado-rico: #DAA520;
+            --blanco-suave: #F4F7F6;
             --texto-oscuro: #333;
             --texto-claro: #fff;
             --sombra-suave: 0 4px 15px rgba(0,0,0,0.1);
@@ -49,13 +49,13 @@
         }
 
         .header-logo {
-            max-width: 150px; /* Ajusta según tu logo */
+            max-width: 150px;
             margin-bottom: 20px;
         }
 
         .header h1 {
             font-family:'Montserrat', sans-serif;
-            font-size: 48px; /* Ligeramente más pequeño para mejor legibilidad */
+            font-size: 48px;
             font-weight: 800;
             letter-spacing: 2px;
             text-transform: uppercase;
@@ -83,7 +83,7 @@
 
         /* --- Ponentes --- */
         .exponentes-section {
-            background: rgba(255, 255, 255, 0.03); /* Fondo sutil */
+            background: rgba(255, 255, 255, 0.03);
             padding: 30px;
             border-radius: 15px;
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -109,7 +109,7 @@
         .ponente img {
             width: 130px;
             height: 130px;
-            border-radius: 50%; /* Imágenes circulares son más modernas */
+            border-radius: 50%;
             object-fit: cover;
             margin-bottom: 15px;
             border: 4px solid var(--dorado-rico);
@@ -326,7 +326,6 @@
     <section class="hero">
         <div class="container">
             <header class="header">
-                <!-- Reemplaza 'logo.jpg' con la ruta real de tu logo -->
                 <img src="logo.jpg" alt="Colegio de Abogados de Irapuato" class="header-logo">
                 <h1>CICLO DE CONFERENCIAS<br> SEMANA DEL ABOGADO 2026</h1>
                 <h2>Conferencias con motivo de la implementación del nuevo Código Nacional de Procedimientos Civiles y Familiares</h2>
@@ -337,19 +336,16 @@
                     <h2 class="exponentes-title">Nuestros Ponentes</h2>
 
                     <div class="ponente">
-                        <!-- Reemplaza 'Luis.jpg' con la ruta real -->
                         <img src="Luis.jpg" alt="Dr. Luis Antonio Santoyo Mota">
                         <h3>Dr. Luis Antonio Santoyo Mota</h3>
                     </div>
 
                     <div class="ponente">
-                        <!-- Reemplaza 'Patricia.jpg' con la ruta real -->
                         <img src="Patricia.jpg" alt="Mtra. Patricia Ruiz Frías">
                         <h3>Mtra. Patricia Ruiz Frías</h3>
                     </div>
 
                     <div class="ponente">
-                        <!-- Reemplaza 'martha.jpg' con la ruta real -->
                         <img src="martha.jpg" alt="Mtra. Martha Georgia Robledo Ascencio">
                         <h3>Mtra. Martha Georgia Robledo Ascencio</h3>
                     </div>
@@ -405,7 +401,7 @@
             </div>
 
             <div class="cupo">
-                Estado del cupo: <span><span id="cupos">80</span></span> de 80 disponibles. <br>
+                Lugares disponibles: <span><span id="cupos">100</span></span> de 100 totales. <br>
                 <small>¡Cupo limitado!</small>
             </div>
 
@@ -439,6 +435,7 @@
     </section>
 
     <script>
+        // Cambiado a 100 lugares disponibles
         let disponibles = 100;
 
         document.getElementById('registroForm').addEventListener('submit', function(e){
@@ -453,7 +450,6 @@
             disponibles--;
             document.getElementById('cupos').innerText = disponibles;
 
-            // Generar folio simple
             let folio = 'CJ2026-' + Date.now().toString().slice(-6);
 
             document.getElementById('resultado').innerHTML =
