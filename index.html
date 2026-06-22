@@ -147,7 +147,7 @@
             margin-bottom: 30px;
             font-size: 32px;
             font-weight: 700;
-            text-align: center; /* Aquí centramos la palabra PROGRAMA */
+            text-align: center;
         }
 
         .tema {
@@ -437,13 +437,13 @@
                     <input type="text" placeholder="Número de oficina (opcional)">
                 </div>
                 <div class="form-group">
-                    <input type="text" placeholder="Número de cédula profesional">
+                    <input type="text" id="cedula" placeholder="Número de cédula profesional" minlength="7" maxlength="10" required>
                 </div>
                 <div class="form-group">
                     <select required>
                         <option value="" disabled selected hidden>¿Pertenece al Colegio de Abogados de Irapuato?</option>
                         <option value="Sí, soy miembro colegiado">Sí, soy miembro colegiado</option>
-                        <option value="No, no pertenezco al Colegio de Abogados</option>
+                        <option value="No, no pertenezco al Colegio de Abogados">No, no pertenezco al Colegio de Abogados</option>
                     </select>
                 </div>
 
@@ -461,6 +461,15 @@
 
         document.getElementById('registroForm').addEventListener('submit', function(e){
             e.preventDefault();
+
+            // Validación mejorada de la cédula profesional
+            let cedulaInput = document.getElementById('cedula').value.trim();
+            
+            if(cedulaInput.length < 7 || cedulaInput.length > 10) {
+                document.getElementById('resultado').innerHTML =
+                '<h3 style="color:#d9534f; font-family:\'Montserrat\', sans-serif;">¡ERROR: LA CÉDULA DEBE TENER ENTRE 7 Y 10 CARACTERES!</h3>';
+                return;
+            }
 
             if(disponibles <= 0){
                 document.getElementById('resultado').innerHTML =
