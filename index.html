@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -473,7 +472,8 @@
     </section>
 
     <script>
-        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwgCzfRUcmNhfJIbj8IKI_UUvzFBFwLsGunbMMc09yuVPOZAuJLpzh0w_pZ08nmnyot/exec";
+        // URL de Google Apps Script totalmente actualizada
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxVgdd4bxRyjCi1hlVmQMagSN_WfIyo_cgEO1xgfHsSo8NPPskWCLPL5mZ3c7yV1MCd/exec";
 
         let disponibles = 100;
 
@@ -501,26 +501,28 @@
 
             let folio = 'CJ2026-' + Date.now().toString().slice(-6);
 
-            let datosFormulario = {
-                nombre: nombreInput,
-                domicilio: document.getElementById('domicilio').value,
-                correo: document.getElementById('correo').value,
-                whatsapp: document.getElementById('whatsapp').value,
-                oficina: document.getElementById('oficina').value || 'N/A',
-                cedula: cedulaInput,
-                miembro: document.getElementById('miembro').value,
-                folio: folio
-            };
+            // Conversión segura de datos tipo URL Search Params
+            const datosFormulario = new URLSearchParams();
+            datosFormulario.append('nombre', nombreInput);
+            datosFormulario.append('domicilio', document.getElementById('domicilio').value);
+            datosFormulario.append('correo', document.getElementById('correo').value);
+            datosFormulario.append('whatsapp', document.getElementById('whatsapp').value);
+            datosFormulario.append('oficina', document.getElementById('oficina').value || 'N/A');
+            datosFormulario.append('cedula', cedulaInput);
+            datosFormulario.append('miembro', document.getElementById('miembro').value);
+            datosFormulario.append('folio', folio);
 
             fetch(WEB_APP_URL, {
                 method: "POST",
                 mode: "no-cors",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/x-www-form-urlencoded"
                 },
-                body: JSON.stringify(datosFormulario)
+                body: datosFormulario.toString()
             })
-            .then(response => {
+            .then(() => {
+                // CORRECCIÓN: Con "no-cors" no validamos la propiedad "response". 
+                // Si la red completa el ciclo de envío, forzamos de inmediato el éxito en pantalla.
                 disponibles--;
                 document.getElementById('cupos').innerText = disponibles;
 
@@ -561,5 +563,3 @@
     </script>
 </body>
 </html>
-
-```
