@@ -7,6 +7,8 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
     <style>
         /* --- Estilos Globales & Reset --- */
         :root {
@@ -293,6 +295,20 @@
             font-weight: 500;
         }
 
+        /* Estenedor del QR impreso en pantalla */
+        .qr-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            background: white;
+            padding: 15px;
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
         /* --- Media Queries (Responsivo) --- */
         @media(max-width: 992px){
             .grid {
@@ -457,7 +473,6 @@
     </section>
 
     <script>
-        // Tu URL de Google Apps Script vinculada correctamente
         const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwgCzfRUcmNhfJIbj8IKI_UUvzFBFwLsGunbMMc09yuVPOZAuJLpzh0w_pZ08nmnyot/exec";
 
         let disponibles = 100;
@@ -465,7 +480,7 @@
         document.getElementById('registroForm').addEventListener('submit', function(e){
             e.preventDefault();
 
-            // Validación de la cédula profesional (mínimo 7 y máximo 10 caracteres)
+            let nombreInput = document.getElementById('nombre').value.trim();
             let cedulaInput = document.getElementById('cedula').value.trim();
             
             if(cedulaInput.length < 7 || cedulaInput.length > 10) {
@@ -480,17 +495,14 @@
                 return;
             }
 
-            // Desactivar el botón para prevenir el doble envío accidental
             const btn = document.getElementById('btnRegistrar');
             btn.disabled = true;
             btn.innerText = "Procesando Registro...";
 
-            // Generación de Folio único
             let folio = 'CJ2026-' + Date.now().toString().slice(-6);
 
-            // Estructura de datos a enviar al backend en Sheets
             let datosFormulario = {
-                nombre: document.getElementById('nombre').value,
+                nombre: nombreInput,
                 domicilio: document.getElementById('domicilio').value,
                 correo: document.getElementById('correo').value,
                 whatsapp: document.getElementById('whatsapp').value,
@@ -500,7 +512,6 @@
                 folio: folio
             };
 
-            // Envío asíncrono de los datos mediante Fetch API
             fetch(WEB_APP_URL, {
                 method: "POST",
                 mode: "no-cors",
@@ -510,20 +521,34 @@
                 body: JSON.stringify(datosFormulario)
             })
             .then(response => {
-                // Restar cupo tras el éxito de la petición
                 disponibles--;
                 document.getElementById('cupos').innerText = disponibles;
 
-                // Mostrar respuesta visual agradable al usuario
+                // Modificado: Mostramos los detalles y preparamos un contenedor div con id "codigoQR"
                 document.getElementById('resultado').innerHTML =
-                '<div style="background:#d4edda; color:#155724; padding:20px; border-radius:8px; border:1px solid #c3e6cb;">' +
+                '<div style="background:#d4edda; color:#155724; padding:20px; border-radius:8px; border:1px solid #c3e6cb; margin-top:20px;">' +
                 '<h3 style="font-family:\'Montserrat\', sans-serif; margin-bottom:10px;">¡Registro Exitoso!</h3>' +
                 '<p>Tu registro se ha completado correctamente y se guardó en la base de datos.</p>' +
-                '<p style="font-weight:700; font-size:18px; margin-top:10px;">Tu Folio es: ' + folio + '</p>' +
-                '<p style="font-size:14px; margin-top:5px; color:#555;">Por favor, guarda este folio para tu acceso.</p>' +
+                '<p style="font-weight:700; font-size:16px; margin-top:5px;">Nombre: ' + nombreInput + '</p>' +
+                '<p style="font-weight:700; font-size:16px;">Cédula: ' + cedulaInput + '</p>' +
+                '<p style="font-weight:700; font-size:18px; margin-top:10px; color:#0A1F44;">Tu Folio es: ' + folio + '</p>' +
+                '<p style="font-size:13px; margin-top:5px; color:#555;">Presenta el siguiente código QR en la entrada del evento:</p>' +
+                '<div id="codigoQR" class="qr-container"></div>' +
                 '</div>';
 
-                // Limpiar los campos del formulario
+                // Texto plano o estructurado que contendrá el QR al escanearse
+                let textoParaQR = "Participante: " + nombreInput + "\nCédula: " + cedulaInput + "\nFolio: " + folio;
+
+                // Generar el QR dentro del div recién creado
+                new QRCode(document.getElementById("codigoQR"), {
+                    text: textoParaQR,
+                    width: 160,
+                    height: 160,
+                    colorDark : "#0A1F44",
+                    colorLight : "#ffffff",
+                    correctLevel : QRCode.CorrectLevel.H
+                });
+
                 document.getElementById('registroForm').reset();
             })
             .catch(error => {
@@ -532,7 +557,6 @@
                 '<h3 style="color:#d9534f; font-family:\'Montserrat\', sans-serif;">Hubo un problema de conexión. Inténtalo de nuevo.</h3>';
             })
             .finally(() => {
-                // Habilitar de nuevo el botón de registro
                 btn.disabled = false;
                 btn.innerText = "Registrarme Ahora";
             });
