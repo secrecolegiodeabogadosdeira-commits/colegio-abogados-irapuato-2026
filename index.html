@@ -50,7 +50,17 @@
 
         .header-logo {
             max-width: 150px;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
+        }
+
+        .logo-text {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--dorado-rico);
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            text-transform: uppercase;
         }
 
         .header h1 {
@@ -327,6 +337,9 @@
         <div class="container">
             <header class="header">
                 <img src="logo.jpg" alt="Colegio de Abogados de Irapuato" class="header-logo">
+                <!-- Texto añadido justo debajo del logo -->
+                <div class="logo-text">COLEGIO DE ABOGADOS DE IRAPUATO, A.C.</div>
+                
                 <h1>CICLO DE CONFERENCIAS<br> SEMANA DEL ABOGADO 2026</h1>
                 <h2>Conferencias con motivo de la implementación del nuevo Código Nacional de Procedimientos Civiles y Familiares</h2>
             </header>
@@ -435,7 +448,6 @@
     </section>
 
     <script>
-        // Cambiado a 100 lugares disponibles
         let disponibles = 100;
 
         document.getElementById('registroForm').addEventListener('submit', function(e){
