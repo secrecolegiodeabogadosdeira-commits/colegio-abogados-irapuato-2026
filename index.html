@@ -473,7 +473,7 @@
 
     <script>
         // URL de Google Apps Script totalmente actualizada
-        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxVgdd4bxRyjCi1hlVmQMagSN_WfIyo_cgEO1xgfHsSo8NPPskWCLPL5mZ3c7yV1MCd/exec";
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwVsQl8-tGR8lBEMRjG1CuFmg9RGvvfJ6QVb02_PP44aut51A2ISSNGV2S7luuQ2jjV/exec";
 
         let disponibles = 100;
 
@@ -501,54 +501,56 @@
 
             let folio = 'CJ2026-' + Date.now().toString().slice(-6);
 
-            // Conversión segura de datos tipo URL Search Params
+            // Estructuración limpia de variables Query
             const datosFormulario = new URLSearchParams();
             datosFormulario.append('nombre', nombreInput);
-            datosFormulario.append('domicilio', document.getElementById('domicilio').value);
-            datosFormulario.append('correo', document.getElementById('correo').value);
-            datosFormulario.append('whatsapp', document.getElementById('whatsapp').value);
-            datosFormulario.append('oficina', document.getElementById('oficina').value || 'N/A');
+            datosFormulario.append('domicilio', document.getElementById('domicilio').value.trim());
+            datosFormulario.append('correo', document.getElementById('correo').value.trim());
+            datosFormulario.append('whatsapp', document.getElementById('whatsapp').value.trim());
+            datosFormulario.append('oficina', document.getElementById('oficina').value.trim() || 'N/A');
             datosFormulario.append('cedula', cedulaInput);
             datosFormulario.append('miembro', document.getElementById('miembro').value);
             datosFormulario.append('folio', folio);
 
-            fetch(WEB_APP_URL, {
-                method: "POST",
-                mode: "no-cors",
-                headers: {
-                    "Content-Type": "application/x-www-form-urlencoded"
-                },
-                body: datosFormulario.toString()
+            // Combinación del endpoint junto a los parámetros estructurados
+            const urlFinal = `${WEB_APP_URL}?${datosFormulario.toString()}`;
+
+            fetch(urlFinal, {
+                method: "POST"
             })
-            .then(() => {
-                // CORRECCIÓN: Con "no-cors" no validamos la propiedad "response". 
-                // Si la red completa el ciclo de envío, forzamos de inmediato el éxito en pantalla.
-                disponibles--;
-                document.getElementById('cupos').innerText = disponibles;
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    disponibles--;
+                    document.getElementById('cupos').innerText = disponibles;
 
-                document.getElementById('resultado').innerHTML =
-                '<div style="background:#d4edda; color:#155724; padding:20px; border-radius:8px; border:1px solid #c3e6cb; margin-top:20px;">' +
-                '<h3 style="font-family:\'Montserrat\', sans-serif; margin-bottom:10px;">¡Registro Exitoso!</h3>' +
-                '<p>Tu registro se ha completado correctamente y se guardó en la base de datos.</p>' +
-                '<p style="font-weight:700; font-size:16px; margin-top:5px;">Nombre: ' + nombreInput + '</p>' +
-                '<p style="font-weight:700; font-size:16px;">Cédula: ' + cedulaInput + '</p>' +
-                '<p style="font-weight:700; font-size:18px; margin-top:10px; color:#0A1F44;">Tu Folio es: ' + folio + '</p>' +
-                '<p style="font-size:13px; margin-top:5px; color:#555;">Presenta el siguiente código QR en la entrada del evento:</p>' +
-                '<div id="codigoQR" class="qr-container"></div>' +
-                '</div>';
+                    document.getElementById('resultado').innerHTML =
+                    '<div style="background:#d4edda; color:#155724; padding:20px; border-radius:8px; border:1px solid #c3e6cb; margin-top:20px;">' +
+                    '<h3 style="font-family:\'Montserrat\', sans-serif; margin-bottom:10px;">¡Registro Exitoso!</h3>' +
+                    '<p>Tu registro se ha completado correctamente y se guardó en la base de datos.</p>' +
+                    '<p style="font-weight:700; font-size:16px; margin-top:5px;">Nombre: ' + nombreInput + '</p>' +
+                    '<p style="font-weight:700; font-size:16px;">Cédula: ' + cedulaInput + '</p>' +
+                    '<p style="font-weight:700; font-size:18px; margin-top:10px; color:#0A1F44;">Tu Folio es: ' + folio + '</p>' +
+                    '<p style="font-size:13px; margin-top:5px; color:#555;">Presenta el siguiente código QR en la entrada del evento:</p>' +
+                    '<div id="codigoQR" class="qr-container"></div>' +
+                    '</div>';
 
-                let textoParaQR = "Participante: " + nombreInput + "\nCédula: " + cedulaInput + "\nFolio: " + folio;
+                    let textoParaQR = "Participante: " + nombreInput + "\nCédula: " + cedulaInput + "\nFolio: " + folio;
 
-                new QRCode(document.getElementById("codigoQR"), {
-                    text: textoParaQR,
-                    width: 160,
-                    height: 160,
-                    colorDark : "#0A1F44",
-                    colorLight : "#ffffff",
-                    correctLevel : QRCode.CorrectLevel.H
-                });
+                    new QRCode(document.getElementById("codigoQR"), {
+                        text: textoParaQR,
+                        width: 160,
+                        height: 160,
+                        colorDark : "#0A1F44",
+                        colorLight : "#ffffff",
+                        correctLevel : QRCode.CorrectLevel.H
+                    });
 
-                document.getElementById('registroForm').reset();
+                    document.getElementById('registroForm').reset();
+                } else {
+                    document.getElementById('resultado').innerHTML =
+                    '<h3 style="color:#d9534f; font-family:\'Montserrat\', sans-serif;">Error en base de datos: ' + data.message + '</h3>';
+                }
             })
             .catch(error => {
                 console.error("Error en la petición:", error);
