@@ -473,7 +473,7 @@
 
     <script>
         // =========================================================================
-        // OBLIGATORIO: REEMPLAZA EL ENLACE DE ABAJO POR TU NUEVA URL DEL PASO 2
+        // URL DE TU APLICACIÓN WEB DE GOOGLE APPS SCRIPT
         // =========================================================================
         const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwBAZo2WaGg1wpYloUA2sA0oZ_efDVZHV1HQDBDvf1tk50lj779Lo8Nx7MqofHigvgj/exec";
 
@@ -503,7 +503,7 @@
 
             let folio = 'CJ2026-' + Date.now().toString().slice(-6);
 
-            // Estructuración de los parámetros de la URL
+            // Estructuración de los parámetros en la URL Query String para el método GET
             const datosFormulario = new URLSearchParams();
             datosFormulario.append('nombre', nombreInput);
             datosFormulario.append('domicilio', document.getElementById('domicilio').value.trim());
@@ -516,50 +516,65 @@
 
             const urlFinal = `${WEB_APP_URL}?${datosFormulario.toString()}`;
 
-            // --- SOLUCIÓN INMUNE A CORS: Envío seguro mediante inyección estática de Script ---
-            const scriptInyectado = document.createElement('script');
-            scriptInyectado.src = urlFinal;
-            
-            // Forzamos el éxito inmediato visual en cuanto el elemento es cargado/procesado por la red
-            scriptInyectado.onload = scriptInyectado.onerror = function() {
-                // Limpieza del elemento inyectado en el DOM
-                if (scriptInyectado.parentNode) {
-                    scriptInyectado.parentNode.removeChild(scriptInyectado);
+            // --- ENVÍO ASÍNCRONO MODERNO UTILIZANDO FETCH ---
+            fetch(urlFinal, {
+                method: 'GET',
+                mode: 'cors' // Permite el procesamiento cruzado nativo
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("Error en la respuesta del servidor");
                 }
+                return response.json(); // Convierte los datos de vuelta a JSON legible
+            })
+            .then(data => {
+                // Evaluamos si Google Apps Script devolvió éxito en su estructura interna
+                if (data.status === "success") {
+                    disponibles--;
+                    document.getElementById('cupos').innerText = disponibles;
 
-                // Ejecución directa de la UI de Éxito
-                disponibles--;
-                document.getElementById('cupos').innerText = disponibles;
+                    document.getElementById('resultado').innerHTML =
+                    '<div style="background:#d4edda; color:#155724; padding:20px; border-radius:8px; border:1px solid #c3e6cb; margin-top:20px;">' +
+                    '<h3 style="font-family:\'Montserrat\', sans-serif; margin-bottom:10px;">¡Registro Exitoso!</h3>' +
+                    '<p>' + data.message + '</p>' +
+                    '<p style="font-weight:700; font-size:16px; margin-top:5px;">Nombre: ' + nombreInput + '</p>' +
+                    '<p style="font-weight:700; font-size:16px;">Cédula: ' + cedulaInput + '</p>' +
+                    '<p style="font-weight:700; font-size:18px; margin-top:10px; color:#0A1F44;">Tu Folio es: ' + folio + '</p>' +
+                    '<p style="font-size:13px; margin-top:5px; color:#555;">Presenta el siguiente código QR en la entrada del evento:</p>' +
+                    '<div id="codigoQR" class="qr-container"></div>' +
+                    '</div>';
 
+                    let textoParaQR = "Participante: " + nombreInput + "\nCédula: " + cedulaInput + "\nFolio: " + folio;
+
+                    new QRCode(document.getElementById("codigoQR"), {
+                        text: textoParaQR,
+                        width: 160,
+                        height: 160,
+                        colorDark : "#0A1F44",
+                        colorLight : "#ffffff",
+                        correctLevel : QRCode.CorrectLevel.H
+                    });
+
+                    document.getElementById('registroForm').reset();
+                } else {
+                    // Manejo si el Apps Script devolvió un error controlado en el bloque catch
+                    document.getElementById('resultado').innerHTML =
+                    '<h3 style="color:#d9534f; font-family:\'Montserrat\', sans-serif;">Hubo un problema: ' + data.message + '</h3>';
+                }
+            })
+            .catch(error => {
+                console.error("Error en la conexión:", error);
+                // Si falla el envío de red por completo, muestra el aviso rojo
                 document.getElementById('resultado').innerHTML =
-                '<div style="background:#d4edda; color:#155724; padding:20px; border-radius:8px; border:1px solid #c3e6cb; margin-top:20px;">' +
-                '<h3 style="font-family:\'Montserrat\', sans-serif; margin-bottom:10px;">¡Registro Exitoso!</h3>' +
-                '<p>Tu registro se ha completado correctamente y se guardó en la base de datos.</p>' +
-                '<p style="font-weight:700; font-size:16px; margin-top:5px;">Nombre: ' + nombreInput + '</p>' +
-                '<p style="font-weight:700; font-size:16px;">Cédula: ' + cedulaInput + '</p>' +
-                '<p style="font-weight:700; font-size:18px; margin-top:10px; color:#0A1F44;">Tu Folio es: ' + folio + '</p>' +
-                '<p style="font-size:13px; margin-top:5px; color:#555;">Presenta el siguiente código QR en la entrada del evento:</p>' +
-                '<div id="codigoQR" class="qr-container"></div>' +
-                '</div>';
-
-                let textoParaQR = "Participante: " + nombreInput + "\nCédula: " + cedulaInput + "\nFolio: " + folio;
-
-                new QRCode(document.getElementById("codigoQR"), {
-                    text: textoParaQR,
-                    width: 160,
-                    height: 160,
-                    colorDark : "#0A1F44",
-                    colorLight : "#ffffff",
-                    correctLevel : QRCode.CorrectLevel.H
-                });
-
-                document.getElementById('registroForm').reset();
+                '<h3 style="color:#d9534f; font-family:\'Montserrat\', sans-serif; margin-top:20px;">' +
+                'Hubo un problema de conexión de red. Inténtalo de nuevo.' +
+                '</h3>';
+            })
+            .finally(() => {
+                // Se reestablece el botón sin importar si fue exitoso o fallido
                 btn.disabled = false;
                 btn.innerText = "Registrarme Ahora";
-            };
-
-            // Adjuntamos el elemento al cuerpo del archivo para gatillar la ejecución externa
-            document.body.appendChild(scriptInyectado);
+            });
         });
     </script>
 </body>
