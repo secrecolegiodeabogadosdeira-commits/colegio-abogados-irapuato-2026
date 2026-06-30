@@ -472,8 +472,10 @@
     </section>
 
     <script>
-        // URL de Google Apps Script totalmente actualizada
-        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwXHf2_Zf0WY1hKFeFTKPh5yfx0OL5rufRMhTwlzWkwVg1BJ9AVvLhyJlv1bfMxdBQ1/exec";
+        // =========================================================================
+        // OBLIGATORIO: REEMPLAZA EL ENLACE DE ABAJO POR TU NUEVA URL DEL PASO 2
+        // =========================================================================
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwBAZo2WaGg1wpYloUA2sA0oZ_efDVZHV1HQDBDvf1tk50lj779Lo8Nx7MqofHigvgj/exec";
 
         let disponibles = 100;
 
@@ -512,7 +514,7 @@
             datosFormulario.append('miembro', document.getElementById('miembro').value);
             datosFormulario.append('folio', folio);
 
-            // Cambiamos a una petición GET adjuntando los datos a la URL para evitar bloqueos de CORS
+            // Petición GET limpia con variables integradas para saltar problemas CORS
             const urlFinal = `${WEB_APP_URL}?${datosFormulario.toString()}`;
 
             fetch(urlFinal, {
@@ -520,8 +522,7 @@
             })
             .then(response => response.json())
             .then(data => {
-                // Validación para leer la respuesta JSON de éxito del script
-                if (data.status === 'success' || data.result === 'success') {
+                if (data.status === 'success') {
                     disponibles--;
                     document.getElementById('cupos').innerText = disponibles;
 
