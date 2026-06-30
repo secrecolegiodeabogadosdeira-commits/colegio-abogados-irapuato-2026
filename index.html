@@ -473,9 +473,9 @@
 
     <script>
         // =========================================================================
-        // URL DE TU APLICACIÓN WEB DE GOOGLE APPS SCRIPT
+        // URL ACTUALIZADA DE TU APLICACIÓN WEB DE GOOGLE APPS SCRIPT
         // =========================================================================
-        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyOGWMAKeiFgk-FxefNwdg4gQ7kctJyEmi0TvvPkTAa6Vypr5jRawhhp6c1Q2SjJSaZ/exec";
+        const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxwsuvCHFo97zirDT_OVM1Pkm8h2lq-WUpEa-EHmTIxZD0y6EHpeKdZ_nfmCB8qf_aQ/exec";
 
         let disponibles = 100;
 
@@ -516,18 +516,16 @@
 
             const urlFinal = `${WEB_APP_URL}?${datosFormulario.toString()}`;
 
-            // --- ENVÍO ASÍNCRONO OPTIMIZADO PARA EVITAR ERRORES DE REDIRECCIÓN EN GOOGLE SCRIPT ---
+            // --- ENVÍO ASÍNCRONO OPTIMIZADO ---
             fetch(urlFinal, {
                 method: 'GET',
                 mode: 'cors',
-                redirect: 'follow' // Fuerza al navegador a seguir el redireccionamiento 302 nativamente
+                redirect: 'follow' 
             })
             .then(response => {
-                // Si la respuesta es exitosa pero no es JSON directo (por las redirecciones), procedemos a transformarlo
                 return response.json(); 
             })
             .then(data => {
-                // Evaluamos si Google Apps Script devolvió éxito en su estructura interna
                 if (data.status === "success") {
                     disponibles--;
                     document.getElementById('cupos').innerText = disponibles;
@@ -556,14 +554,12 @@
 
                     document.getElementById('registroForm').reset();
                 } else {
-                    // Manejo si el Apps Script devolvió un error controlado en el bloque catch
                     document.getElementById('resultado').innerHTML =
                     '<h3 style="color:#d9534f; font-family:\'Montserrat\', sans-serif;">Hubo un problema: ' + data.message + '</h3>';
                 }
             })
             .catch(error => {
                 console.error("Error en la conexión:", error);
-                // Si falla por completo o la cabecera falló, damos soporte secundario si es un falso positivo
                 document.getElementById('resultado').innerHTML =
                 '<div style="background:#d4edda; color:#155724; padding:20px; border-radius:8px; border:1px solid #c3e6cb; margin-top:20px;">' +
                 '<h3 style="font-family:\'Montserrat\', sans-serif; margin-bottom:10px;">¡Registro Procesado!</h3>' +
@@ -591,7 +587,6 @@
                 document.getElementById('registroForm').reset();
             })
             .finally(() => {
-                // Se reestablece el botón sin importar si fue exitoso o fallido
                 btn.disabled = false;
                 btn.innerText = "Registrarme Ahora";
             });
