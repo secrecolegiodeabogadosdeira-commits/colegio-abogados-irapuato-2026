@@ -501,7 +501,7 @@
 
             let folio = 'CJ2026-' + Date.now().toString().slice(-6);
 
-            // Estructuración limpia de variables Query
+            // Estructuración de los parámetros de la URL
             const datosFormulario = new URLSearchParams();
             datosFormulario.append('nombre', nombreInput);
             datosFormulario.append('domicilio', document.getElementById('domicilio').value.trim());
@@ -512,15 +512,16 @@
             datosFormulario.append('miembro', document.getElementById('miembro').value);
             datosFormulario.append('folio', folio);
 
-            // Combinación del endpoint junto a los parámetros estructurados
+            // Cambiamos a una petición GET adjuntando los datos a la URL para evitar bloqueos de CORS
             const urlFinal = `${WEB_APP_URL}?${datosFormulario.toString()}`;
 
             fetch(urlFinal, {
-                method: "POST"
+                method: "GET"
             })
             .then(response => response.json())
             .then(data => {
-                if (data.status === 'success') {
+                // Validación para leer la respuesta JSON de éxito del script
+                if (data.status === 'success' || data.result === 'success') {
                     disponibles--;
                     document.getElementById('cupos').innerText = disponibles;
 
@@ -549,13 +550,13 @@
                     document.getElementById('registroForm').reset();
                 } else {
                     document.getElementById('resultado').innerHTML =
-                    '<h3 style="color:#d9534f; font-family:\'Montserrat\', sans-serif;">Error en base de datos: ' + data.message + '</h3>';
+                    '<h3 style="color:#d9534f; font-family:\'Montserrat\', sans-serif;">Error en base de datos: ' + (data.message || 'No se pudo procesar') + '</h3>';
                 }
             })
             .catch(error => {
                 console.error("Error en la petición:", error);
                 document.getElementById('resultado').innerHTML =
-                '<h3 style="color:#d9534f; font-family:\'Montserrat\', sans-serif;">Hubo un problema de conexión. Inténtalo de nuevo.</h3>';
+                '<h3 style="color:#d9534f; font-family:\'Montserrat\', sans-serif;">Hubo un problema de conexión o configuración CORS. Inténtalo de nuevo.</h3>';
             })
             .finally(() => {
                 btn.disabled = false;
